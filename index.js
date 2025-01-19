@@ -29,7 +29,7 @@ const earthGeo = new THREE.IcosahedronGeometry(1, 12);
 const mat = new THREE.MeshPhongMaterial({
     color: 0xffffff,
     map: loader.load("./textures/8k_earth_daymap.jpg"),
-    bumpMap: loader.load("./01_earthbump1k.jpg"),
+    bumpMap: loader.load("./textures/01_earthbump1k.jpg"),
     bumpScale: 0.04
 });
 
