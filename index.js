@@ -9,17 +9,32 @@ const loadingManager = new THREE.LoadingManager(
         const loadingScreen = document.getElementById("loading-screen");
         const threeJsScene = document.getElementById("threejs-container");
 
-        setTimeout(() => {
-            loadingScreen.classList.add('hidden');
-        }, 1800);
+        let opacity = 1;
+        function fadeOutLoadingScreen() {
+            opacity -= 0.004; // Adjust speed as needed
+            loadingScreen.style.opacity = opacity;
 
-        setTimeout(() => {
-            //loadingScreen.style.display = "none"; // Remove loading screen from the layout
-            //threeJsScene.classList.add('visible');
-            setTimeout(() => {
-                //threeJsScene.style.display = "block"; // Show Three.js scene
-            }, 50);
-        }, 10000);
+            if (opacity <= 0) {
+                loadingScreen.style.display = "none"; // Remove it from the layout
+                threeJsScene.style.display = "block"; // Show the Three.js scene
+                fadeInThreeJsScene();
+            } else {
+                requestAnimationFrame(fadeOutLoadingScreen);
+            }
+        }
+
+        // Fade in the Three.js scene
+        let sceneOpacity = 0;
+        function fadeInThreeJsScene() {
+            sceneOpacity += 0.02; // Adjust speed as needed
+            threeJsScene.style.opacity = sceneOpacity;
+
+            if (sceneOpacity < 1) {
+                requestAnimationFrame(fadeInThreeJsScene);
+            }
+        }
+
+        fadeOutLoadingScreen();
 
     },
     (itemUrl, itemLoaded, itemTotal) => {
@@ -54,6 +69,24 @@ function startApp() {
 
     
     const loader = new THREE.TextureLoader(loadingManager);
+    const mat = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        map: loader.load("./textures/8k_earth_daymap.jpg"),
+        bumpMap: loader.load("./textures/01_earthbump1k.jpg"),
+        bumpScale: 0.04
+    });
+    const lightsMat = new THREE.MeshBasicMaterial({
+        map: loader.load("./textures/8k_earth_nightmap.jpg"),
+        transparent: true,
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending
+    });
+    const cloudMat = new THREE.MeshStandardMaterial({
+        map: loader.load("./textures/8k_earth_clouds.jpg"),
+        transparent: true,
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending
+    });
 
     const scene = new THREE.Scene();
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -64,37 +97,17 @@ function startApp() {
     earthGroup.rotation.z = -23.4 * Math.PI / 180;
 
     const earthGeo = new THREE.IcosahedronGeometry(1, 12);
-    const mat = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        map: loader.load("./textures/8k_earth_daymap.jpg"),
-        bumpMap: loader.load("./textures/01_earthbump1k.jpg"),
-        bumpScale: 0.04
-    });
+    
 
     const earthMesh = new THREE.Mesh(earthGeo, mat)
     earthGroup.add(earthMesh);
-
-    const lightsMat = new THREE.MeshBasicMaterial({
-        map: loader.load("./textures/8k_earth_nightmap.jpg"),
-        transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending
-    });
-
+    
     const lightsMesh = new THREE.Mesh(earthGeo, lightsMat);
     earthGroup.add(lightsMesh);
-
-    const cloudMat = new THREE.MeshStandardMaterial({
-        map: loader.load("./textures/8k_earth_clouds.jpg"),
-        transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending
-    });
 
     const cloudMesh = new THREE.Mesh(earthGeo, cloudMat);
     cloudMesh.scale.setScalar(1.003);
     earthGroup.add(cloudMesh);
-
 
     const fresnelMat = getFresnelMat();
     const glowMesh = new THREE.Mesh(earthGeo, fresnelMat);
