@@ -1,0 +1,49 @@
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: white; /* Or your desired background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 2s ease; /* 2-second fade effect */
+}
+
+
+#loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none; /* Avoid interaction when hidden */
+}
+
+.st1 {
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7)); /* Add shadow */
+    transition: all 0.3s ease;
+}
+
+
+#logo {
+    fill: rgb(0, 0, 0) !important;
+    /* animation: colorTransition 2s ease-in-out infinite; */
+    transition: clip-path 2s ease-in-out;
+    clip-path: inset(0 100% 0 0);
+}
+
+#threejs-scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none; /* Initially hidden */
+    opacity: 0;    /* For fade-in transition */
+    transition: opacity 2s ease;
+}
+
+#threejs-scene.visible {
+    display: block;
+    opacity: 1;
+}
