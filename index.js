@@ -14,12 +14,12 @@ const loadingManager = new THREE.LoadingManager(
         }, 1800);
 
         setTimeout(() => {
-            loadingScreen.style.display = "none"; // Remove loading screen from the layout
-            threeJsScene.classList.add('visible');
+            //loadingScreen.style.display = "none"; // Remove loading screen from the layout
+            //threeJsScene.classList.add('visible');
             setTimeout(() => {
-                threeJsScene.style.display = "block"; // Show Three.js scene
+                //threeJsScene.style.display = "block"; // Show Three.js scene
             }, 50);
-        }, 3000);
+        }, 10000);
 
     },
     (itemUrl, itemLoaded, itemTotal) => {
