@@ -71,18 +71,18 @@ function startApp() {
     const loader = new THREE.TextureLoader(loadingManager);
     const mat = new THREE.MeshPhongMaterial({
         color: 0xffffff,
-        map: loader.load("./textures/8k_earth_daymap.jpg"),
+        map: loader.load("./textures/2k_earth_daymap.jpg"),
         bumpMap: loader.load("./textures/01_earthbump1k.jpg"),
         bumpScale: 0.04
     });
     const lightsMat = new THREE.MeshBasicMaterial({
-        map: loader.load("./textures/8k_earth_nightmap.jpg"),
+        map: loader.load("./textures/2k_earth_nightmap.jpg"),
         transparent: true,
         opacity: 0.6,
         blending: THREE.AdditiveBlending
     });
     const cloudMat = new THREE.MeshStandardMaterial({
-        map: loader.load("./textures/8k_earth_clouds.jpg"),
+        map: loader.load("./textures/2k_earth_clouds.jpg"),
         transparent: true,
         opacity: 0.6,
         blending: THREE.AdditiveBlending
