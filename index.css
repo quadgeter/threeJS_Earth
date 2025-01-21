@@ -36,14 +36,6 @@ svg{
     height: auto;
 }
 
-/* @media (max-width: 768px) {
-    #logo {
-        fill: rgb(0, 0, 0) !important;
-        clip-path: none; /*Static logo (full visible) for mobile */
-        transition: none; /* Disable animation for mobile */
-    }
-} */
-
 #threejs-scene {
     position: absolute;
     top: 0;
