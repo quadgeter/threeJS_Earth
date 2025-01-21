@@ -56,13 +56,6 @@ function updateLogoProgress(progress) {
 
     logoGroup.style.clipPath = `inset(0 ${100 - progress}% 0 0)`;
     logoGroup.style.transition = 'clip-path 2s ease-in-out';
-    // if (isMobileDevice()) {
-    //     logoGroup.style.clipPath = `inset(0 0 0 0)`;
-    //     logoGroup.style.transition = 'none';
-    // } 
-    // else {
-       
-    // }
 }
 
 function startApp() {
