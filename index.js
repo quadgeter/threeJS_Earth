@@ -52,15 +52,17 @@ const loadingManager = new THREE.LoadingManager(
 function updateLogoProgress(progress) {
 
     const logoGroup = document.querySelector('#logo');
-    console.log(isMobileDevice());
-    if (isMobileDevice()) {
-        logoGroup.style.clipPath = `inset(0 0 0 0)`;
-        logoGroup.style.transition = 'none';
-    } 
-    else {
-        logoGroup.style.clipPath = `inset(0 ${100 - progress}% 0 0)`;
-        logoGroup.style.transition = 'clip-path 2s ease-in-out';
-    }
+    console.log("Mobile Device ? ") + isMobileDevice();
+
+    logoGroup.style.clipPath = `inset(0 ${100 - progress}% 0 0)`;
+    logoGroup.style.transition = 'clip-path 2s ease-in-out';
+    // if (isMobileDevice()) {
+    //     logoGroup.style.clipPath = `inset(0 0 0 0)`;
+    //     logoGroup.style.transition = 'none';
+    // } 
+    // else {
+       
+    // }
 }
 
 function startApp() {
