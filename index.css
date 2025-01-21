@@ -13,7 +13,6 @@
     transition: opacity 2s ease; /* 2-second fade effect */
 }
 
-
 #loading-screen.hidden {
     opacity: 0;
     pointer-events: none; /* Avoid interaction when hidden */
@@ -30,6 +29,14 @@
     /* animation: colorTransition 2s ease-in-out infinite; */
     transition: clip-path 2s ease-in-out;
     clip-path: inset(0 100% 0 0);
+}
+
+@media (max-width: 768px) {
+    #logo {
+        fill: rgb(0, 0, 0) !important;
+        clip-path: none; /*Static logo (full visible) for mobile */
+        transition: none; /* Disable animation for mobile */
+    }
 }
 
 #threejs-scene {

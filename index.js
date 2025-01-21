@@ -3,6 +3,10 @@ import { OrbitControls } from "jsm/controls/OrbitControls.js";
 import getStarField from "./src/getStarfield.js";
 import { getFresnelMat } from "./src/getFresnelMat.js";
 
+function isMobileDevice() {
+    return window.innerWidth <= 768;
+}
+
 const loadingManager = new THREE.LoadingManager(
     () => {
         // On load complete
@@ -11,7 +15,7 @@ const loadingManager = new THREE.LoadingManager(
 
         let opacity = 1;
         function fadeOutLoadingScreen() {
-            opacity -= 0.004; // Adjust speed as needed
+            opacity -= 0.0045; // Adjust speed as needed
             loadingScreen.style.opacity = opacity;
 
             if (opacity <= 0) {
@@ -46,9 +50,17 @@ const loadingManager = new THREE.LoadingManager(
 );
 
 function updateLogoProgress(progress) {
+
     const logoGroup = document.querySelector('#logo');
-    logoGroup.style.clipPath = `inset(0 ${100 - progress}% 0 0)`;
-    console.log(logoGroup);
+    console.log(isMobileDevice());
+    if (isMobileDevice()) {
+        logoGroup.style.clipPath = `inset(0 0 0 0)`;
+        logoGroup.style.transition = 'none';
+    } 
+    else {
+        logoGroup.style.clipPath = `inset(0 ${100 - progress}% 0 0)`;
+        logoGroup.style.transition = 'clip-path 2s ease-in-out';
+    }
 }
 
 function startApp() {
